@@ -17,7 +17,7 @@ const initialProposals = [
     votes: 284,
     notNecessaryVotes: 11,
     voteChoice: null,
-    author: "A. Mukherjee",
+    author: "ANUU Sharma",
     createdAt: "2 days ago",
     latitude: 22.5787,
     longitude: 88.4756,
@@ -41,7 +41,7 @@ const initialProposals = [
     votes: 198,
     notNecessaryVotes: 7,
     voteChoice: null,
-    author: "S. Das",
+    author: "Sharma ji ka beta",
     createdAt: "4 days ago",
     latitude: 22.5781,
     longitude: 88.4313,
@@ -66,7 +66,7 @@ const initialProposals = [
     comments: [
       {
         id: 102,
-        author: "Anik D.",
+        author: "Mausii",
         text: "Please include accessible seating too.",
       },
     ],
