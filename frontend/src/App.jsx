@@ -59,7 +59,7 @@ const initialProposals = [
     votes: 156,
     notNecessaryVotes: 18,
     voteChoice: null,
-    author: "P. Roy",
+    author: "Crishinooo Ronaldoo",
     createdAt: "1 week ago",
     latitude: 22.5141,
     longitude: 88.3632,
