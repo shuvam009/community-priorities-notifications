@@ -24,7 +24,7 @@ const initialProposals = [
     comments: [
       {
         id: 101,
-        author: "Riya S.",
+        author: "Virat_Kohli_18",
         text: "This route is very dark after 8 PM.",
       },
     ],
