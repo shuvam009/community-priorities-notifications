@@ -83,7 +83,7 @@ const initialProposals = [
     votes: 121,
     notNecessaryVotes: 9,
     voteChoice: null,
-    author: "R. Sen",
+    author: "MAHII",
     createdAt: "1 week ago",
     latitude: 22.5524,
     longitude: 88.3541,
