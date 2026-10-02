@@ -92,9 +92,30 @@ const initialProposals = [
 ];
 
 const initialNotifications = [
-  { id: 1, type: "proposal_status", title: "Proposal under review", message: "The drainage proposal for Ward 42 is now being reviewed.", time: "12 min ago", isRead: false },
-  { id: 2, type: "comment", title: "New community comment", message: "A resident commented on the New Town street lights proposal.", time: "1 hour ago", isRead: false },
-  { id: 3, type: "system", title: "Community voting update", message: "This week’s priority list is now available.", time: "Yesterday", isRead: true },
+  {
+    id: 1,
+    type: "proposal_status",
+    title: "Proposal under review",
+    message: "The drainage proposal for Ward 42 is now being reviewed.",
+    time: "12 min ago",
+    isRead: false,
+  },
+  {
+    id: 2,
+    type: "comment",
+    title: "New community comment",
+    message: "A resident commented on the New Town street lights proposal.",
+    time: "1 hour ago",
+    isRead: false,
+  },
+  {
+    id: 3,
+    type: "system",
+    title: "Community voting update",
+    message: "This week’s priority list is now available.",
+    time: "Yesterday",
+    isRead: true,
+  },
 ];
 
 export default function App() {
@@ -161,11 +182,19 @@ export default function App() {
   }
 
   function markNotificationRead(id) {
-    setNotifications((current) => current.map((notification) => notification.id === id ? { ...notification, isRead: true } : notification));
+    setNotifications((current) =>
+      current.map((notification) =>
+        notification.id === id
+          ? { ...notification, isRead: true }
+          : notification,
+      ),
+    );
   }
 
   function markAllNotificationsRead() {
-    setNotifications((current) => current.map((notification) => ({ ...notification, isRead: true })));
+    setNotifications((current) =>
+      current.map((notification) => ({ ...notification, isRead: true })),
+    );
   }
 
   return (
@@ -179,8 +208,22 @@ export default function App() {
         </a>
         <nav className="main-nav" aria-label="Main navigation">
           <div className="notification-wrapper">
-            <NotificationBell unreadCount={notifications.filter((notification) => !notification.isRead).length} isOpen={notificationsOpen} onClick={() => setNotificationsOpen((open) => !open)} />
-            {notificationsOpen && <NotificationList notifications={notifications} onMarkRead={markNotificationRead} onMarkAllRead={markAllNotificationsRead} onClose={() => setNotificationsOpen(false)} />}
+            <NotificationBell
+              unreadCount={
+                notifications.filter((notification) => !notification.isRead)
+                  .length
+              }
+              isOpen={notificationsOpen}
+              onClick={() => setNotificationsOpen((open) => !open)}
+            />
+            {notificationsOpen && (
+              <NotificationList
+                notifications={notifications}
+                onMarkRead={markNotificationRead}
+                onMarkAllRead={markAllNotificationsRead}
+                onClose={() => setNotificationsOpen(false)}
+              />
+            )}
           </div>
           <button className="profile">$</button>
         </nav>
