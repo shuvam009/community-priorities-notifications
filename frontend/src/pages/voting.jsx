@@ -8,6 +8,7 @@ export default function Voting({
   onNotNecessary,
   onAddComment,
   stats,
+  onShowPolls,
 }) {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("all");
@@ -93,8 +94,13 @@ export default function Voting({
             <h2>Choose a priority to support</h2>
             <p>Votes are public totals; you can vote only once per proposal.</p>
           </div>
-          <div className="result-count">
-            {displayedProposals.length} proposals
+          <div className="suggestion-actions">
+            <button className="polls-link" onClick={onShowPolls}>
+              Community polls →
+            </button>
+            <div className="result-count">
+              {displayedProposals.length} proposals
+            </div>
           </div>
         </div>
         <div className="filters" aria-label="Proposal filters">

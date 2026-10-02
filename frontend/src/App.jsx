@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import "./App.css";
 import Voting from "./pages/voting.jsx";
+import Polls from "./pages/polls.jsx";
 import NotificationBell from "./components/notification_bell.jsx";
 import NotificationList from "./components/notification_list.jsx";
 
@@ -122,6 +123,7 @@ export default function App() {
   const [proposals, setProposals] = useState(initialProposals);
   const [notifications, setNotifications] = useState(initialNotifications);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [activePage, setActivePage] = useState("suggestions");
   const stats = useMemo(
     () => ({
       open: proposals.filter((proposal) => proposal.status === "open").length,
@@ -200,12 +202,12 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <a className="brand" href="#voting">
+        <button className="brand" onClick={() => setActivePage("suggestions")}>
           <span className="brand-mark">KS</span>
           <span>
             <b>Kolkata</b> Smart City<small>Citizen Command Center</small>
           </span>
-        </a>
+        </button>
         <nav className="main-nav" aria-label="Main navigation">
           <div className="notification-wrapper">
             <NotificationBell
@@ -229,13 +231,18 @@ export default function App() {
         </nav>
       </header>
       <main>
-        <Voting
-          proposals={proposals}
-          onNecessary={markNecessary}
-          onNotNecessary={markNotNecessary}
-          onAddComment={addComment}
-          stats={stats}
-        />
+        {activePage === "suggestions" ? (
+          <Voting
+            proposals={proposals}
+            onNecessary={markNecessary}
+            onNotNecessary={markNotNecessary}
+            onAddComment={addComment}
+            stats={stats}
+            onShowPolls={() => setActivePage("polls")}
+          />
+        ) : (
+          <Polls onBack={() => setActivePage("suggestions")} />
+        )}
       </main>
     </div>
   );
