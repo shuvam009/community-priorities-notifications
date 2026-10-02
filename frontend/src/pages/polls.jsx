@@ -1,109 +1,117 @@
 import { useMemo, useState } from "react";
 
-const initialPolls = [
+const pollGroups = [
   {
-    id: 1,
     category: "Infrastructure",
-    title: "Prioritise road repair around Sealdah station",
-    location: "Ward 36 · Sealdah",
-    yes: 74,
-    no: 26,
+    choices: [
+      ["Repair potholes near Sealdah station", 26],
+      ["Repair drainage before monsoon in Ward 42", 24],
+      ["Upgrade footpaths around Esplanade", 25],
+    ],
   },
   {
-    id: 2,
     category: "Mobility",
-    title: "Add protected cycle lanes near Salt Lake Sector V",
-    location: "Ward 41 · Salt Lake",
-    yes: 68,
-    no: 32,
+    choices: [
+      ["Add safer crossings near Park Street Metro", 29],
+      ["Create a dedicated cycle lane in Sector V", 21],
+      ["Improve bus-stop signage in New Town", 18],
+    ],
   },
   {
-    id: 3,
     category: "Public spaces",
-    title: "Create an evening community plaza at Rabindra Sarobar",
-    location: "Ward 87 · South Kolkata",
-    yes: 81,
-    no: 19,
+    choices: [
+      ["Add shaded seating at Rabindra Sarobar", 30],
+      ["Restore neighbourhood playground equipment", 22],
+      ["Create a community garden in Ward 63", 19],
+    ],
   },
   {
-    id: 4,
     category: "Safety",
-    title: "Increase street-light coverage near New Town bus stops",
-    location: "Ward 39 · New Town",
-    yes: 89,
-    no: 11,
+    choices: [
+      ["Install street lights near New Town bus stop", 31],
+      ["Add CCTV near local market entrances", 23],
+      ["Improve pedestrian signals after dark", 20],
+    ],
   },
   {
-    id: 5,
     category: "Water",
-    title: "Install drinking-water refill stations at local markets",
-    location: "Ward 42 · Salt Lake",
-    yes: 63,
-    no: 37,
+    choices: [
+      ["Repair pipeline damage in Salt Lake", 26],
+      ["Address water shortage in Sealdah", 24],
+      ["Improve water supply in Rajarhat", 25],
+    ],
   },
   {
-    id: 6,
     category: "Electricity",
-    title: "Upgrade power backup for neighbourhood health centres",
-    location: "Ward 63 · Park Street",
-    yes: 76,
-    no: 24,
+    choices: [
+      ["Improve power backup for health centres", 27],
+      ["Repair frequent outages in Ward 39", 22],
+      ["Add solar lights in public parks", 24],
+    ],
   },
-];
+].map((group) => ({
+  ...group,
+  total: 36,
+  choices: group.choices.map(([title, votes], index) => ({
+    id: `${group.category}-${index}`,
+    title,
+    votes,
+  })),
+}));
 
 export default function Polls({ onBack }) {
-  const [polls, setPolls] = useState(initialPolls);
+  const [groups, setGroups] = useState(pollGroups);
   const [category, setCategory] = useState("All");
-
-  const shownPolls = useMemo(
+  const [selectedVotes, setSelectedVotes] = useState({});
+  const shownGroups = useMemo(
     () =>
-      polls.filter((poll) => category === "All" || poll.category === category),
-    [category, polls],
+      groups.filter(
+        (group) => category === "All" || group.category === category,
+      ),
+    [category, groups],
   );
 
-  function vote(id, choice) {
-    setPolls((current) =>
-      current.map((poll) => {
-        if (poll.id !== id || poll.choice) return poll;
-        return {
-          ...poll,
-          choice,
-          yes: choice === "yes" ? poll.yes + 1 : poll.yes,
-          no: choice === "no" ? poll.no + 1 : poll.no,
-        };
-      }),
+  function castVote(categoryName, choiceId) {
+    if (selectedVotes[categoryName]) return;
+    setSelectedVotes((current) => ({ ...current, [categoryName]: choiceId }));
+    setGroups((current) =>
+      current.map((group) =>
+        group.category !== categoryName
+          ? group
+          : {
+              ...group,
+              total: group.total + 1,
+              choices: group.choices.map((choice) =>
+                choice.id === choiceId
+                  ? { ...choice, votes: choice.votes + 1 }
+                  : choice,
+              ),
+            },
+      ),
     );
   }
 
   return (
-    <section className="polls-page">
+    <section className="polls-page ballot-page">
       <div className="polls-heading">
         <div>
           <button className="back-button" onClick={onBack}>
             ← Back to suggestions
           </button>
           <p className="eyebrow">COMMUNITY POLLS</p>
-          <h1>Make your vote count.</h1>
+          <h1>Choose one local priority.</h1>
           <p>
-            Choose one option on each poll. One citizen can cast one vote per
-            poll.
+            One citizen can vote once in each category. Results update after you
+            vote.
           </p>
         </div>
         <div className="poll-summary">
-          <b>{polls.length}</b>
-          <span>active polls</span>
+          <b>6</b>
+          <span>poll categories</span>
         </div>
       </div>
       <div className="poll-category-bar" aria-label="Poll category filters">
-        {[
-          "All",
-          "Infrastructure",
-          "Mobility",
-          "Public spaces",
-          "Safety",
-          "Water",
-          "Electricity",
-        ].map((item) => (
+        {["All", ...groups.map((group) => group.category)].map((item) => (
           <button
             className={category === item ? "selected" : ""}
             key={item}
@@ -113,64 +121,55 @@ export default function Polls({ onBack }) {
           </button>
         ))}
       </div>
-      <div className="poll-grid">
-        {shownPolls.map((poll) => {
-          const total = poll.yes + poll.no;
-          const yesPercent = Math.round((poll.yes / total) * 100);
-          const noPercent = 100 - yesPercent;
-          return (
-            <article className="poll-card" key={poll.id}>
-              <div className="poll-card-top">
-                <span
-                  className={`category category-${poll.category.toLowerCase().replace(" ", "-")}`}
-                >
-                  {poll.category}
+      <div className="ballot-groups">
+        {shownGroups.map((group) => (
+          <article className="ballot-group" key={group.category}>
+            <div className="ballot-group-heading">
+              <div>
+                <p>{group.category} issues</p>
+                <span>
+                  {selectedVotes[group.category]
+                    ? "Vote submitted"
+                    : "Choose one issue to prioritise"}
                 </span>
-                <button
-                  className="issue-info"
-                  title="Issue details will be connected by the Issue module"
-                  aria-label={`Issue information for ${poll.title}`}
-                >
-                  i
-                </button>
               </div>
-              <h2>{poll.title}</h2>
-              <p className="poll-location">⌖ {poll.location}</p>
-              <div className="percentage-row">
-                <span>Votes</span>
-                <b>{yesPercent}%</b>
-              </div>
-              <div className="poll-track" aria-label={`${yesPercent}% support`}>
-                <span style={{ width: `${yesPercent}%` }} />
-              </div>
-              <div className="poll-results">
-                <span>Yes {yesPercent}%</span>
-                <span>No {noPercent}%</span>
-              </div>
-              <div className="poll-vote-buttons">
-                <button
-                  className={poll.choice === "yes" ? "chosen yes" : "yes"}
-                  disabled={Boolean(poll.choice)}
-                  onClick={() => vote(poll.id, "yes")}
-                >
-                  ✓ Required
-                </button>
-                <button
-                  className={poll.choice === "no" ? "chosen no" : "no"}
-                  disabled={Boolean(poll.choice)}
-                  onClick={() => vote(poll.id, "no")}
-                >
-                  Not now
-                </button>
-              </div>
-              {poll.choice && (
-                <p className="vote-confirmation">
-                  Your vote is recorded. Thank you for participating.
-                </p>
-              )}
-            </article>
-          );
-        })}
+              <b>{group.total} votes</b>
+            </div>
+            <div className="ballot-options">
+              {group.choices.map((choice) => {
+                const percent = Math.round((choice.votes / group.total) * 100);
+                const isChosen = selectedVotes[group.category] === choice.id;
+                return (
+                  <button
+                    className={`ballot-option ${isChosen ? "chosen" : ""}`}
+                    key={choice.id}
+                    disabled={Boolean(selectedVotes[group.category])}
+                    onClick={() => castVote(group.category, choice.id)}
+                  >
+                    <span className="choice-icon">⌖</span>
+                    <span className="choice-copy">
+                      <b>{choice.title}</b>
+                      <small>
+                        <i style={{ width: `${percent}%` }} />
+                        {percent}% of votes
+                      </small>
+                    </span>
+                    <span className="vote-total">
+                      {choice.votes}/{group.total}
+                    </span>
+                    <span
+                      className="issue-info"
+                      title="Issue details will be connected by the Issue module"
+                      aria-label={`Issue information for ${choice.title}`}
+                    >
+                      i
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );

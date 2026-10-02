@@ -516,6 +516,121 @@ button {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
+.ballot-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.ballot-group {
+  overflow: hidden;
+  border: 1px solid #e3dfd6;
+  border-radius: 13px;
+  background: #fffdf9;
+}
+.ballot-group-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 17px 19px;
+  background: #f2f7f5;
+  border-bottom: 1px solid #e1e9e5;
+}
+.ballot-group-heading p {
+  margin: 0;
+  color: #224b62;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.ballot-group-heading span {
+  display: block;
+  margin-top: 4px;
+  color: #768b94;
+  font-size: 10px;
+}
+.ballot-group-heading > b {
+  color: #397668;
+  font-size: 11px;
+}
+.ballot-options {
+  display: grid;
+}
+.ballot-option {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto 25px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 83px;
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 1px solid #ece7de;
+  background: #fffdf9;
+  color: #1f4258;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+.ballot-option:last-child {
+  border-bottom: 0;
+}
+.ballot-option:not(:disabled):hover {
+  background: #f2f9f6;
+}
+.ballot-option:disabled {
+  cursor: not-allowed;
+}
+.ballot-option.chosen {
+  background: #e6f5ee;
+}
+.choice-icon {
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #d9eff1;
+  color: #267288;
+  font-size: 18px;
+}
+.choice-copy {
+  min-width: 0;
+}
+.choice-copy b {
+  display: block;
+  overflow: hidden;
+  color: #23455a;
+  font-size: 12px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.choice-copy small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  color: #738991;
+  font-size: 9px;
+}
+.choice-copy small i {
+  display: block;
+  height: 5px;
+  min-width: 6px;
+  max-width: 58px;
+  border-radius: 5px;
+  background: #5aae96;
+}
+.vote-total {
+  color: #a26b48;
+  font:
+    700 13px "DM Sans",
+    sans-serif;
+  white-space: nowrap;
+}
+.ballot-option .issue-info {
+  justify-self: end;
+  flex: 0 0 auto;
+}
 .poll-card {
   min-height: 315px;
   padding: 20px;
@@ -1041,6 +1156,9 @@ button {
   .poll-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .ballot-groups {
+    grid-template-columns: 1fr;
+  }
   .voting-steps {
     grid-template-columns: 1fr;
     gap: 25px;
@@ -1077,6 +1195,11 @@ button {
   }
   .poll-grid {
     grid-template-columns: 1fr;
+  }
+  .ballot-option {
+    grid-template-columns: 37px minmax(0, 1fr) auto 24px;
+    gap: 8px;
+    padding-inline: 11px;
   }
   .suggestion-actions {
     align-items: start;
