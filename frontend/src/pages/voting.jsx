@@ -89,7 +89,7 @@ export default function Voting({
       <section className="priorities-section" id="voting">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">ACTIVE VOTING</p>
+            <p className="eyebrow">ACTIVE SUGGESTION LIST</p>
             <h2>Choose a priority to support</h2>
             <p>Votes are public totals; you can vote only once per proposal.</p>
           </div>
@@ -111,7 +111,7 @@ export default function Voting({
             onChange={(event) => setStatus(event.target.value)}
           >
             <option value="all">All statuses</option>
-            <option value="open">Open for voting</option>
+            <option value="open">Open for Suggestion</option>
             <option value="under_review">Under review</option>
             <option value="accepted">Accepted</option>
           </select>

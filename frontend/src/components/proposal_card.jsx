@@ -2,7 +2,7 @@ import VoteButton from "./vote_button.jsx";
 import CommentSection from "./comment_section.jsx";
 
 const statusLabels = {
-  open: "Open for voting",
+  open: "Open for Suggestion",
   under_review: "Under review",
   accepted: "Accepted",
   rejected: "Not selected",
