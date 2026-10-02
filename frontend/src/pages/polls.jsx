@@ -137,7 +137,7 @@ export default function Polls({ onBack }) {
               <h2>{poll.title}</h2>
               <p className="poll-location">⌖ {poll.location}</p>
               <div className="percentage-row">
-                <span>Support</span>
+                <span>Votes</span>
                 <b>{yesPercent}%</b>
               </div>
               <div className="poll-track" aria-label={`${yesPercent}% support`}>
@@ -153,7 +153,7 @@ export default function Polls({ onBack }) {
                   disabled={Boolean(poll.choice)}
                   onClick={() => vote(poll.id, "yes")}
                 >
-                  ✓ Support
+                  ✓ Required
                 </button>
                 <button
                   className={poll.choice === "no" ? "chosen no" : "no"}
