@@ -182,7 +182,7 @@ export default function App() {
             <NotificationBell unreadCount={notifications.filter((notification) => !notification.isRead).length} isOpen={notificationsOpen} onClick={() => setNotificationsOpen((open) => !open)} />
             {notificationsOpen && <NotificationList notifications={notifications} onMarkRead={markNotificationRead} onMarkAllRead={markAllNotificationsRead} onClose={() => setNotificationsOpen(false)} />}
           </div>
-          <button className="profile">AM</button>
+          <button className="profile">$</button>
         </nav>
       </header>
       <main>
