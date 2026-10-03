@@ -230,9 +230,11 @@ export default function App() {
           <button className="profile" title="Profile">
             $
           </button>
-          <button className="Menu" title="Menu">
-            ///
-          </button>
+          <div className="Menu-div">
+            <button className="Menu" title="Menu">
+              ///
+            </button>
+          </div>
         </nav>
       </header>
       <main>
