@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "node --watch server/index.js"
+    "start": "node server/servers.js",
+    "dev": "node --watch server/servers.js"
   },
   "dependencies": {
     "cors": "^2.8.6",
