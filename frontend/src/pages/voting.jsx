@@ -96,7 +96,7 @@ export default function Voting({
           </div>
           <div className="suggestion-actions">
             <button className="polls-link" onClick={onShowPolls}>
-              Community polls →
+              Voting polls →
             </button>
             <div className="result-count">
               {displayedProposals.length} proposals

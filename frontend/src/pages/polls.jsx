@@ -98,7 +98,7 @@ export default function Polls({ onBack }) {
           <button className="back-button" onClick={onBack}>
             ← Back to suggestions
           </button>
-          <p className="eyebrow">COMMUNITY POLLS</p>
+          <p className="eyebrow">VOTING POLLS</p>
           <h1>Choose one local priority.</h1>
           <p>
             One citizen can vote once in each category. Results update after you
@@ -159,7 +159,7 @@ export default function Polls({ onBack }) {
                     </span>
                     <span
                       className="issue-info"
-                      title="Issue details will be connected by the Issue module"
+                      title="koushik part"
                       aria-label={`Issue information for ${choice.title}`}
                     >
                       i
