@@ -227,8 +227,12 @@ export default function App() {
               />
             )}
           </div>
-          <button className="profile" title="Profile">$</button>
-          <button className="Menu" title="Menu">///</button>
+          <button className="profile" title="Profile">
+            $
+          </button>
+          <button className="Menu" title="Menu">
+            ///
+          </button>
         </nav>
       </header>
       <main>
