@@ -41,8 +41,11 @@ export default function Voting({
             per proposal and help city teams identify what matters most.
           </p>
           <a className="create-button" href="#voting">
-            View active suggestions ↓
+            View active suggestions 
           </a>
+           <button className="vote-link" onClick={onShowPolls}>
+              View Voting polls 
+            </button>
         </div>
         <div className="hero-card">
           <span className="live-tag">● Live community impact</span>
