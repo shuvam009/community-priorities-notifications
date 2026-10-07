@@ -109,9 +109,10 @@ export default function CommunityModule() {
           <button className="profile" title="Profile">
             $
           </button>
-          <div className="menu">
-            <button>///</button>
-          </div>
+
+          <button className="menu" title="Menu">
+            ///
+          </button>
         </nav>
       </header>
       <main>
