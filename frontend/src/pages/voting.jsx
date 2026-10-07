@@ -41,7 +41,7 @@ export default function Voting({
             per proposal and help city teams identify what matters most.
           </p>
           <a className="create-button" href="#voting">
-            View active votes ↓
+            View active suggestions ↓
           </a>
         </div>
         <div className="hero-card">
