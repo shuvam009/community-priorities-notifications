@@ -49,7 +49,8 @@ const pollGroups = [
       ["Add solar lights in public parks", 24],
     ],
   },
-].map((group) => ({
+]
+.map((group) => ({
   ...group,
   total: 36,
   choices: group.choices.map(([title, votes], index) => ({
