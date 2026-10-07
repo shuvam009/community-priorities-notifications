@@ -1,17 +1,26 @@
 import { useMemo, useState } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import NotificationBell from "../../components/notification_bell.jsx";
 import NotificationList from "../../components/notification_list.jsx";
 import SmartCityMark from "../../components/smart_city_mark.jsx";
 import Polls from "../../pages/citizen/polls.jsx";
 import Voting from "../../pages/citizen/voting.jsx";
+import CitizenMenu from "../../pages/citizen/menu.jsx";
 import { initialNotifications, initialProposals } from "./communityData.js";
 
 export default function CommunityModule() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [proposals, setProposals] = useState(initialProposals);
   const [notifications, setNotifications] = useState(initialNotifications);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const stats = useMemo(
     () => ({
       open: proposals.filter((proposal) => proposal.status === "open").length,
@@ -110,11 +119,25 @@ export default function CommunityModule() {
             $
           </button>
 
-          <button className="menu" title="Menu">
-            ///
+          <button
+            className="menu"
+            title="Menu"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open citizen menu"
+          >
+            ☰
           </button>
         </nav>
       </header>
+      <CitizenMenu
+        isOpen={menuOpen}
+        currentPath={location.pathname}
+        onClose={() => setMenuOpen(false)}
+        onNavigate={(path) => {
+          navigate(path);
+          setMenuOpen(false);
+        }}
+      />
       <main>
         <Routes>
           <Route
