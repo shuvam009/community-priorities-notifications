@@ -3,8 +3,8 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import NotificationBell from "../../components/notification_bell.jsx";
 import NotificationList from "../../components/notification_list.jsx";
 import SmartCityMark from "../../components/smart_city_mark.jsx";
-import Polls from "../../pages/polls.jsx";
-import Voting from "../../pages/voting.jsx";
+import Polls from "../../pages/citizen/polls.jsx";
+import Voting from "../../pages/citizen/voting.jsx";
 import { initialNotifications, initialProposals } from "./communityData.js";
 
 export default function CommunityModule() {
