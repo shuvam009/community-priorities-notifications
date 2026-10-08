@@ -12,19 +12,21 @@ export default function Voting({
 }) {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("all");
+  const [category, setCategory] = useState("all");
   const [sort, setSort] = useState("popular");
   const [selectedProposal, setSelectedProposal] = useState(null);
   const displayedProposals = useMemo(
     () =>
       proposals
         .filter((proposal) => status === "all" || proposal.status === status)
+        .filter((proposal) => category === "all" || proposal.category === category)
         .filter((proposal) =>
           `${proposal.title} ${proposal.description} ${proposal.area}`
             .toLowerCase()
             .includes(search.toLowerCase()),
         )
         .sort((a, b) => (sort === "popular" ? b.votes - a.votes : b.id - a.id)),
-    [proposals, search, sort, status],
+    [proposals, search, sort, status, category],
   );
   return (
     <>
@@ -123,6 +125,16 @@ export default function Voting({
             <option value="open">Open for Suggestion</option>
             <option value="under_review">Under review</option>
             <option value="accepted">Accepted</option>
+          </select>
+          <select value={category} onChange={(event) => setCategory(event.target.value)}>
+            <option value="all">All categories</option>
+            <option>Roads &amp; Traffic</option>
+            <option>Street Lighting</option>
+            <option>Water Supply</option>
+            <option>Waste Management</option>
+            <option>Electricity</option>
+            <option>Public Safety</option>
+            <option>Others</option>
           </select>
           <select
             value={sort}

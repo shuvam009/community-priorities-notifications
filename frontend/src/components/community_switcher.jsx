@@ -44,7 +44,7 @@ export default function CommunitySwitcher({
             >
               <Icon size={18} />
               <span>{label}</span>
-              {disabled && <em>Later</em>}
+              {disabled && <em></em>}
             </button>
           ))}
         </nav>

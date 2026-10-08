@@ -2,57 +2,64 @@ import { useMemo, useState } from "react";
 
 const pollGroups = [
   {
-    category: "Infrastructure",
+    category: "Roads & Traffic",
     choices: [
       ["Repair potholes near Sealdah station", 26],
-      ["Repair drainage before monsoon in Ward 42", 24],
+      ["Improve traffic flow near Salt Lake market", 24],
       ["Upgrade footpaths around Esplanade", 25],
     ],
   },
   {
-    category: "Mobility",
+    category: "Street Lighting",
     choices: [
-      ["Add safer crossings near Park Street Metro", 29],
-      ["Create a dedicated cycle lane in Sector V", 21],
-      ["Improve bus-stop signage in New Town", 18],
+      ["Install street lights near Park Street Metro", 29],
+      ["Repair damaged lights in Sector V", 21],
+      ["Add lights at New Town bus stops", 18],
     ],
   },
   {
-    category: "Public spaces",
+    category: "Water Supply",
     choices: [
-      ["Add shaded seating at Rabindra Sarobar", 30],
-      ["Restore neighbourhood playground equipment", 22],
-      ["Create a community garden in Ward 63", 19],
+      ["Repair pipeline damage in Salt Lake", 30],
+      ["Address water shortage in Sealdah", 22],
+      ["Improve water supply in Rajarhat", 19],
     ],
   },
   {
-    category: "Safety",
+    category: "Waste Management",
     choices: [
-      ["Install street lights near New Town bus stop", 31],
-      ["Add CCTV near local market entrances", 23],
-      ["Improve pedestrian signals after dark", 20],
-    ],
-  },
-  {
-    category: "Water",
-    choices: [
-      ["Repair pipeline damage in Salt Lake", 26],
-      ["Address water shortage in Sealdah", 24],
-      ["Improve water supply in Rajarhat", 25],
+      ["Add waste collection bins near markets", 31],
+      ["Improve doorstep waste collection", 23],
+      ["Clear waste near canal-side roads", 20],
     ],
   },
   {
     category: "Electricity",
     choices: [
-      ["Improve power backup for health centres", 27],
-      ["Repair frequent outages in Ward 39", 22],
-      ["Add solar lights in public parks", 24],
+      ["Improve power backup for health centres", 26],
+      ["Repair frequent outages in Ward 39", 24],
+      ["Add solar lights in public parks", 25],
     ],
   },
-]
-.map((group) => ({
+  {
+    category: "Public Safety",
+    choices: [
+      ["Add CCTV near local market entrances", 27],
+      ["Improve pedestrian signals after dark", 22],
+      ["Make school zones safer", 24],
+    ],
+  },
+  {
+    category: "Other",
+    choices: [
+      ["Add a community notice board", 20],
+      ["Organise a neighbourhood clean-up drive", 17],
+      ["Create a local senior-citizen help desk", 15],
+    ],
+  },
+].map((group) => ({
   ...group,
-  total: 36,
+  publishedAt: "Published on 8 October 2026",
   choices: group.choices.map(([title, votes], index) => ({
     id: `${group.category}-${index}`,
     title,
@@ -81,7 +88,6 @@ export default function Polls({ onBack }) {
           ? group
           : {
               ...group,
-              total: group.total + 1,
               choices: group.choices.map((choice) =>
                 choice.id === choiceId
                   ? { ...choice, votes: choice.votes + 1 }
@@ -107,7 +113,7 @@ export default function Polls({ onBack }) {
           </p>
         </div>
         <div className="poll-summary">
-          <b>6</b>
+          <b>7</b>
           <span>poll categories</span>
         </div>
       </div>
@@ -131,14 +137,13 @@ export default function Polls({ onBack }) {
                 <span>
                   {selectedVotes[group.category]
                     ? "Vote submitted"
-                    : "Choose one issue to prioritise"}
+                    : group.publishedAt}
                 </span>
               </div>
-              <b>{group.total} votes</b>
+              <b>{group.publishedAt}</b>
             </div>
             <div className="ballot-options">
               {group.choices.map((choice) => {
-                const percent = Math.round((choice.votes / group.total) * 100);
                 const isChosen = selectedVotes[group.category] === choice.id;
                 return (
                   <button
@@ -150,13 +155,7 @@ export default function Polls({ onBack }) {
                     <span className="choice-icon">⌖</span>
                     <span className="choice-copy">
                       <b>{choice.title}</b>
-                      <small>
-                        <i style={{ width: `${percent}%` }} />
-                        {percent}% of votes
-                      </small>
-                    </span>
-                    <span className="vote-total">
-                      {choice.votes}/{group.total}
+                      <small>{choice.votes} people voted</small>
                     </span>
                     <span
                       className="issue-info"
