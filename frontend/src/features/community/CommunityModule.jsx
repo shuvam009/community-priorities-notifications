@@ -9,6 +9,7 @@ import {
 import NotificationBell from "../../components/notification_bell.jsx";
 import NotificationList from "../../components/notification_list.jsx";
 import SmartCityMark from "../../components/smart_city_mark.jsx";
+import CommunitySwitcher from "../../components/community_switcher.jsx";
 import Polls from "../../pages/citizen/polls.jsx";
 import Voting from "../../pages/citizen/voting.jsx";
 import CitizenMenu from "../../pages/citizen/menu.jsx";
@@ -21,6 +22,7 @@ export default function CommunityModule() {
   const [notifications, setNotifications] = useState(initialNotifications);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [switcherOpen, setSwitcherOpen] = useState(false);
   const stats = useMemo(
     () => ({
       open: proposals.filter((proposal) => proposal.status === "open").length,
@@ -129,6 +131,15 @@ export default function CommunityModule() {
           </button>
         </nav>
       </header>
+      <CommunitySwitcher
+        isOpen={switcherOpen}
+        currentPath={location.pathname}
+        onToggle={() => setSwitcherOpen((open) => !open)}
+        onNavigate={(path) => {
+          navigate(path);
+          setSwitcherOpen(false);
+        }}
+      />
       <CitizenMenu
         isOpen={menuOpen}
         currentPath={location.pathname}
