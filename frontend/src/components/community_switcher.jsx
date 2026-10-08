@@ -39,7 +39,7 @@ export default function CommunitySwitcher({
               key={label}
               className={currentPath === path ? "active" : ""}
               disabled={disabled}
-              title={disabled ? "Coming soon" : label}
+              title={disabled ? "voting history" : label}
               onClick={() => !disabled && onNavigate(path)}
             >
               <Icon size={18} />
