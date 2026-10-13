@@ -9,7 +9,7 @@ import {
 const pages = [
   { label: "Suggestions", icon: ClipboardList, path: "/community/suggestions" },
   { label: "Voting polls", icon: Vote, path: "/community/polls" },
-  { label: "History", icon: History, disabled: true },
+  { label: "History", icon: History, path: "/community/history" },
 ];
 
 export default function CommunitySwitcher({
@@ -44,7 +44,7 @@ export default function CommunitySwitcher({
             >
               <Icon size={18} />
               <span>{label}</span>
-              {disabled && <em></em>}
+              {disabled && <em>Later</em>}
             </button>
           ))}
         </nav>

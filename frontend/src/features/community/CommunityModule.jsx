@@ -10,8 +10,10 @@ import NotificationBell from "../../components/notification_bell.jsx";
 import NotificationList from "../../components/notification_list.jsx";
 import SmartCityMark from "../../components/smart_city_mark.jsx";
 import CommunitySwitcher from "../../components/community_switcher.jsx";
+import { Moon, Sun } from "lucide-react";
 import Polls from "../../pages/citizen/polls.jsx";
 import Voting from "../../pages/citizen/voting.jsx";
+import History from "../../pages/citizen/history.jsx";
 import CitizenMenu from "../../pages/citizen/menu.jsx";
 import { initialNotifications, initialProposals } from "./communityData.js";
 
@@ -23,6 +25,7 @@ export default function CommunityModule() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [switcherOpen, setSwitcherOpen] = useState(false);
+  const [theme, setTheme] = useState("light");
   const stats = useMemo(
     () => ({
       open: proposals.filter((proposal) => proposal.status === "open").length,
@@ -93,7 +96,7 @@ export default function CommunityModule() {
   }
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${theme}-theme`}>
       <header className="topbar">
         <button
           className="brand"
@@ -117,6 +120,16 @@ export default function CommunityModule() {
               />
             )}
           </div>
+          <button
+            className="theme-toggle"
+            onClick={() =>
+              setTheme((current) => (current === "light" ? "dark" : "light"))
+            }
+            title={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+          >
+            {theme === "light" ? <Moon size={17} /> : <Sun size={17} />}
+          </button>
           <button className="profile" title="Profile">
             $
           </button>
@@ -170,6 +183,7 @@ export default function CommunityModule() {
               <Polls onBack={() => navigate("/community/suggestions")} />
             }
           />
+          <Route path="history" element={<History />} />
           <Route path="*" element={<Navigate to="suggestions" replace />} />
         </Routes>
       </main>

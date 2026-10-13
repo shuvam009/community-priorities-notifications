@@ -1,0 +1,19 @@
+/* Light theme overrides. The CommunityModule starts with this class. */
+.app-shell.light-theme {
+  background: #f8f7f3;
+  color: #19344a;
+}
+.app-shell.light-theme .theme-toggle {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid #cfe1e4;
+  border-radius: 50%;
+  background: #edf7f8;
+  color: #236f85;
+}
+.app-shell.light-theme .community-history {
+  background: #f5f7f6;
+  color: #1d3745;
+}

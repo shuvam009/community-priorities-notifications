@@ -25,7 +25,7 @@ const navigationItems = [
     label: "Voting & suggestion history",
     detail: "Contribution History",
     icon: History,
-    disabled: true,
+    path: "/community/history",
   },
 ];
 

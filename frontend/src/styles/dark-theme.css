@@ -1,0 +1,17 @@
+/* Dark theme overrides. Remove this file and its import when dark mode is no longer needed. */
+.app-shell.dark-theme,
+.app-shell.dark-theme main {
+  background: #07131d;
+  color: #dceaf0;
+}
+
+.app-shell.dark-theme .theme-toggle {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid #31586a;
+  border-radius: 50%;
+  background: #102630;
+  color: #a7e1ee;
+}
