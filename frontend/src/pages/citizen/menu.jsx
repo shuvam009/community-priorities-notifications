@@ -1,6 +1,14 @@
-import { ClipboardList, History, Vote, X } from "lucide-react";
+import { ClipboardList, History, Home, Vote, X } from "lucide-react";
 
 const navigationItems = [
+  
+  {
+    label: "HOME",
+    detail: "Switch to main home page",
+    icon: Home,
+    disabled: true,
+  },
+  
   {
     label: "Suggestions",
     detail: "Share and support local ideas",
