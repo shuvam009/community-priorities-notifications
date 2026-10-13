@@ -6,7 +6,7 @@ const navigationItems = [
     label: "HOME",
     detail: "Switch to main home page",
     icon: Home,
-    disabled: true,
+    disabled: false,
   },
   
   {
