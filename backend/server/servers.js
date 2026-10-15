@@ -20,6 +20,7 @@ app.use(express.json({ limit: "1mb" }));
 app.get("/api/health", (_request, response) =>
   response.json({ status: "ok", service: "community-voting-notifications" }),
 );
+
 app.use("/api/proposals", proposalsRouter);
 app.use("/api/notifications", notificationsRouter);
 app.use((error, _request, response, _next) => {
