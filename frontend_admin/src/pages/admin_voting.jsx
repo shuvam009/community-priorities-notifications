@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import SmartCityMark from "../../../frontend/src/components/smart_city_mark";
 
 const incomingIssues = [
   {
@@ -112,6 +113,9 @@ export default function AdminVoting() {
             <small>ADMIN CONSOLE</small>
           </div>
         </div>
+
+        {/* <SmartCityMark /> */}
+        
         <nav>
           <button className="active">
             ▦ <span>Voting workspace</span>
