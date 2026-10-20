@@ -122,6 +122,9 @@ export default function AdminVoting() {
           <button>
             ♧ <span>Citizen activity</span>
           </button>
+          <button>
+            ♧ <span>Vote history</span>
+          </button>
         </nav>
         <div className="admin-account">
           <span>AS</span>
