@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import SmartCityMark from "../../../frontend/src/components/smart_city_mark";
+import { useNavigate } from "react-router-dom";
 
 const incomingIssues = [
   {
@@ -57,6 +57,7 @@ const initialPolls = [
 ];
 
 export default function AdminVoting() {
+  const navigate = useNavigate();
   const [issues, setIssues] = useState(incomingIssues);
   const [polls, setPolls] = useState(initialPolls);
   const [selectedIssue, setSelectedIssue] = useState(null);
@@ -126,10 +127,10 @@ export default function AdminVoting() {
           <button>
             ♧ <span>Citizen activity</span>
           </button>
-          <button>
+          <button onClick={() => navigate("/admin/voting-history")}>
             $ <span>Vote history</span>
           </button>
-          <button>
+          <button onClick={() => navigate("/admin/community-history")}>
             !<span>Community history</span>
           </button>
         </nav>
@@ -183,6 +184,10 @@ export default function AdminVoting() {
               <option>Roads & Traffic</option>
               <option>Street Lighting</option>
               <option>Water Supply</option>
+              <option>Waste Management</option>
+              <option>Electricity</option>
+              <option>Public Safety</option>
+              <option>Other</option>
             </select>
           </div>
           <div className="issue-list">

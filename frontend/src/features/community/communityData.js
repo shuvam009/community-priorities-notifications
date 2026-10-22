@@ -48,7 +48,7 @@ export const initialProposals = [
       "Add benches, drinking water points, and shade for senior citizens and walkers.",
     ward: "Ward 87",
     area: "South Kolkata",
-    category: "Others",
+    category: "Other",
     status: "accepted",
     votes: 156,
     notNecessaryVotes: 18,

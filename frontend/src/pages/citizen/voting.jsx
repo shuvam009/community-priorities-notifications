@@ -19,7 +19,9 @@ export default function Voting({
     () =>
       proposals
         .filter((proposal) => status === "all" || proposal.status === status)
-        .filter((proposal) => category === "all" || proposal.category === category)
+        .filter(
+          (proposal) => category === "all" || proposal.category === category,
+        )
         .filter((proposal) =>
           `${proposal.title} ${proposal.description} ${proposal.area}`
             .toLowerCase()
@@ -43,11 +45,11 @@ export default function Voting({
             per proposal and help city teams identify what matters most.
           </p>
           <a className="create-button" href="#voting">
-            View active suggestions 
+            View active suggestions
           </a>
-           <button className="vote-link" onClick={onShowPolls}>
-              View Voting polls 
-            </button>
+          <button className="vote-link" onClick={onShowPolls}>
+            View Voting polls
+          </button>
         </div>
         <div className="hero-card">
           <span className="live-tag">● Live community impact</span>
@@ -126,7 +128,10 @@ export default function Voting({
             <option value="under_review">Under review</option>
             <option value="accepted">Accepted</option>
           </select>
-          <select value={category} onChange={(event) => setCategory(event.target.value)}>
+          <select
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
+          >
             <option value="all">All categories</option>
             <option>Roads &amp; Traffic</option>
             <option>Street Lighting</option>
@@ -134,7 +139,7 @@ export default function Voting({
             <option>Waste Management</option>
             <option>Electricity</option>
             <option>Public Safety</option>
-            <option>Others</option>
+            <option>Other</option>
           </select>
           <select
             value={sort}
