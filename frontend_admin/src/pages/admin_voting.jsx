@@ -129,6 +129,9 @@ export default function AdminVoting() {
           <button>
             $ <span>Vote history</span>
           </button>
+          <button>
+            !<span>Community history</span>
+          </button>
         </nav>
         <div className="admin-account">
           <span>AS</span>
