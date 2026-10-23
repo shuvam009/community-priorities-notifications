@@ -13,19 +13,19 @@ export default function AdminShell({ children }) {
         </div>
         <nav>
           <NavLink to="/admin/voting">
-            ▦ <span>Voting workspace</span>
+             <span>Voting workspace</span>
           </NavLink>
           <button>
-            ◫ <span>Issue management</span>
+             <span>Issue management</span>
           </button>
           <button>
-            ♧ <span>Citizen activity</span>
+             <span>Citizen activity</span>
           </button>
           <NavLink to="/admin/voting-history">
-            $ <span>Vote history</span>
+             <span>Vote history</span>
           </NavLink>
           <NavLink to="/admin/community-history">
-            ! <span>Community history</span>
+             <span>Community history</span>
           </NavLink>
         </nav>
         <div className="admin-account">
