@@ -20,6 +20,11 @@ async function request(path, options = {}) {
 }
 
 export const communityApi = {
+  getNotifications: () => request("/notifications"),
+  markNotificationRead: (notificationId) =>
+    request(`/notifications/${notificationId}/read`, { method: "PATCH" }),
+  markAllNotificationsRead: () =>
+    request("/notifications/read-all", { method: "PATCH" }),
   getCommunityPosts: () => request("/community-posts"),
   postReview: (postId, review) =>
     request(`/community-posts/${postId}/reviews`, {

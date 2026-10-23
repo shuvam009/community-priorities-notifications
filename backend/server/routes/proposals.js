@@ -171,6 +171,7 @@ router.patch(
       await Notification.create({
         userId: proposal.proposedBy,
         type: "proposal_status",
+        title: "Proposal status changed",
         message: `Your proposal is now ${status.replace("_", " ")}.`,
         relatedProposal: proposal.id,
       });

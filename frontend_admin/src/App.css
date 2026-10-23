@@ -5,7 +5,24 @@
   background: #f3f6f5;
 }
 
-.admin-sidebar nav a { display: flex; gap: 11px; align-items: center; padding: 12px; border: 0; border-radius: 8px; background: transparent; color: #a9c4cc; text-align: left; font-size: 12px; text-decoration: none; }.admin-sidebar nav a.active, .admin-sidebar nav a:hover { background: #134151; color: #edfbfc; }
+.admin-sidebar nav a {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #a9c4cc;
+  text-align: left;
+  font-size: 12px;
+  text-decoration: none;
+}
+.admin-sidebar nav a.active,
+.admin-sidebar nav a:hover {
+  background: #134151;
+  color: #edfbfc;
+}
 
 /* Community and voting history pages */
 .history-admin-page {
@@ -105,6 +122,24 @@
   padding: 10px 13px;
   background: #1b7188;
   color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+.announcement-composer > div > span {
+  display: block;
+  margin-top: 10px;
+  color: #70858e;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.announcement-audience {
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  border: 1px solid #b8d8d2;
+  border-radius: 7px;
+  background: #eaf6f3;
+  color: #287367;
   font-size: 11px;
   font-weight: 700;
 }

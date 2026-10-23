@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Navigate,
   Route,
@@ -16,6 +16,7 @@ import Voting from "../../pages/citizen/voting.jsx";
 import History from "../../pages/citizen/history.jsx";
 import CitizenMenu from "../../pages/citizen/menu.jsx";
 import { initialNotifications, initialProposals } from "./communityData.js";
+import { communityApi } from "../../services/communityApi.js";
 
 export default function CommunityModule() {
   const navigate = useNavigate();
@@ -26,6 +27,27 @@ export default function CommunityModule() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [switcherOpen, setSwitcherOpen] = useState(false);
   const [theme, setTheme] = useState("light");
+  useEffect(() => {
+    communityApi
+      .getNotifications()
+      .then(({ notifications: items }) => {
+        setNotifications(
+          items.map((item) => ({
+            ...item,
+            id: item._id,
+            title: item.title || "Community update",
+            time: new Date(item.createdAt).toLocaleString("en-IN", {
+              day: "numeric",
+              month: "short",
+              hour: "numeric",
+              minute: "2-digit",
+            }),
+          })),
+        );
+      })
+      // Keep the presentation demo working before a citizen JWT is connected.
+      .catch(() => {});
+  }, []);
   const stats = useMemo(
     () => ({
       open: proposals.filter((proposal) => proposal.status === "open").length,
@@ -88,11 +110,13 @@ export default function CommunityModule() {
         item.id === id ? { ...item, isRead: true } : item,
       ),
     );
+    communityApi.markNotificationRead(id).catch(() => {});
   }
   function markAllNotificationsRead() {
     setNotifications((current) =>
       current.map((item) => ({ ...item, isRead: true })),
     );
+    communityApi.markAllNotificationsRead().catch(() => {});
   }
 
   return (

@@ -1601,285 +1601,284 @@ button {
 }
 
 @scope (.app-shell.dark-theme) {
-:root {
-  color: #dceaf0;
-  background: #07131d;
-}
-body,
-.app-shell {
-  background: #07131d;
-  color: #dceaf0;
-}
-.topbar {
-  background: #0a1722;
-  border-color: #1d3342;
-}
-.brand,
-.smart-city-mark p {
-  color: #eef8fa;
-}
-.brand small {
-  color: #8da8b7;
-}
-.main-nav > button,
-.main-nav > a,
-.main-nav .menu {
-  color: #9fd7ed;
-}
-.main-nav .bell {
-  background: #142a38;
-  color: #78d2f5;
-}
-.main-nav .profile {
-  background: #1d6685;
-}
-.community-switcher-content,
-.citizen-menu,
-.notification-menu {
-  background: #0c1b27;
-  border-color: #203a49;
-}
-.community-switcher nav button,
-.citizen-menu-links > button,
-.notification-item {
-  color: #b7cbd5;
-}
-.community-switcher nav button:hover:not(:disabled),
-.community-switcher nav button.active,
-.citizen-menu-links > button:hover:not(:disabled),
-.citizen-menu-links > button.active,
-.notification-item:hover,
-.notification-item.unread {
-  background: #122c36;
-  color: #dff5f7;
-}
-.citizen-menu-header h2,
-.notification-menu header h2 {
-  color: #e4f3f4;
-}
-.citizen-menu-header button,
-.notification-close {
-  background: #18313e;
-  color: #b8e2ec;
-}
-.menu-item-icon,
-.notification-icon {
-  background: #153442;
-  color: #7dd7ef;
-}
-.citizen-menu-note,
-.citizen-menu-links small,
-.notification-item small,
-.notification-empty {
-  color: #8aa5b2;
-}
-.hero-section::after {
-  background: linear-gradient(
-    90deg,
-    rgba(4, 18, 29, 0.96),
-    rgba(7, 32, 44, 0.85),
-    rgba(6, 25, 35, 0.7)
-  );
-}
-.hero-card {
-  background: rgba(10, 31, 43, 0.76);
-  border-color: rgba(135, 220, 237, 0.24);
-}
-.voting-steps h2,
-.section-heading h2,
-.polls-heading h1,
-.form-heading h1,
-.location-modal h2 {
-  color: #e9f6f5;
-}
-.step-grid article,
-.proposal-card,
-.ballot-group,
-.poll-card,
-.proposal-form,
-.feedback-dialog,
-.location-modal {
-  background: #0d1d29;
-  border-color: #203a49;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
-}
-.step-grid h3,
-.proposal-card h3,
-.ballot-group-heading p,
-.choice-copy b,
-.poll-card h2,
-.feedback-dialog h3 {
-  color: #dff0f2;
-}
-.step-grid p,
-.section-heading > div > p:not(.eyebrow),
-.proposal-card > p,
-.proposal-meta,
-.polls-heading p:not(.eyebrow),
-.ballot-group-heading span,
-.choice-copy small,
-.poll-location,
-.feedback-dialog > p,
-.location-name,
-.coordinates,
-.map-placeholder p {
-  color: #91abb7;
-}
-.filters select,
-.search-box,
-.poll-category-bar button,
-.polls-link,
-.necessary-button,
-.unnecessary-button,
-.comment-form input,
-.proposal-form input,
-.proposal-form select,
-.proposal-form textarea,
-.cancel-button {
-  background: #0a1924;
-  border-color: #284656;
-  color: #c7dde3;
-}
-.search-box input {
-  color: #d6e9ed;
-}
-.filters select option,
-.proposal-form select option {
-  background: #0a1924;
-  color: #d6e9ed;
-}
-.polls-link {
-  color: #8ed9ed;
-}
-.polls-link:hover,
-.poll-category-bar button.selected {
-  background: #17617c;
-  border-color: #2494b7;
-  color: #f1fbfb;
-}
-.ballot-group-heading {
-  background: #102733;
-  border-color: #203d4c;
-}
-.ballot-group-heading > b {
-  color: #71d7bf;
-}
-.ballot-option {
-  background: #0d1d29;
-  border-color: #203a49;
-  color: #d8e8eb;
-}
-.ballot-option:not(:disabled):hover,
-.ballot-option.chosen {
-  background: #12313a;
-}
-.choice-icon {
-  background: #143947;
-  color: #84dced;
-}
-.issue-info {
-  background: #102630;
-  border-color: #396172;
-  color: #9fe4f4;
-}
-.category {
-  background: #312719;
-  color: #f1bd83;
-}
-.category-safety {
-  background: #352128;
-  color: #f4a9a8;
-}
-.category-mobility {
-  background: #1b2b42;
-  color: #a4c9fa;
-}
-.category-public-spaces {
-  background: #16362f;
-  color: #9be2c8;
-}
-.status {
-  background: #23313a;
-  color: #b8d0d9;
-}
-.status-open {
-  background: #35291b;
-  color: #f2c687;
-}
-.status-under_review {
-  background: #1a2d42;
-  color: #a9cef0;
-}
-.status-accepted {
-  background: #15372e;
-  color: #9ee0c7;
-}
-.comment-section {
-  border-color: #203a49;
-}
-.comment-toggle,
-.details-button,
-.back-button,
-.mark-all-button {
-  color: #8ed9ed;
-}
-.comment-panel {
-  background: #10232e;
-}
-.comments-list article {
-  border-color: #25414e;
-}
-.comments-list b {
-  color: #bbdbe3;
-}
-.comments-list p,
-.no-comments {
-  color: #91aab6;
-}
-.comment-form button {
-  background: #19708b;
-}
-.necessary-button {
-  color: #9bd8c4;
-}
-.unnecessary-button {
-  border-color: #613e39;
-  color: #e7a595;
-}
-.necessary-button.selected {
-  background: #153d32;
-  color: #a7eed1;
-}
-.unnecessary-button.selected {
-  background: #442722;
-  color: #f0b1a0;
-}
-.map-placeholder {
-  border-color: #315d69;
-  background: linear-gradient(135deg, #102b34, #142332);
-  color: #9adcea;
-}
-.map-placeholder span {
-  background: #174554;
-  color: #93e2ef;
-}
-.close-button {
-  background: #18313e;
-  color: #b8e2ec;
-}
-.empty-state {
-  border-color: #315364;
-  color: #a9c2ca;
-}
-.feedback-dialog textarea {
-  background: #0a1924;
-  border-color: #284656;
-  color: #d6e9ed;
-}
-.feedback-submit {
-  background: #c96447;
-}
-
+  :root {
+    color: #dceaf0;
+    background: #07131d;
+  }
+  body,
+  .app-shell {
+    background: #07131d;
+    color: #dceaf0;
+  }
+  .topbar {
+    background: #0a1722;
+    border-color: #1d3342;
+  }
+  .brand,
+  .smart-city-mark p {
+    color: #eef8fa;
+  }
+  .brand small {
+    color: #8da8b7;
+  }
+  .main-nav > button,
+  .main-nav > a,
+  .main-nav .menu {
+    color: #9fd7ed;
+  }
+  .main-nav .bell {
+    background: #142a38;
+    color: #78d2f5;
+  }
+  .main-nav .profile {
+    background: #1d6685;
+  }
+  .community-switcher-content,
+  .citizen-menu,
+  .notification-menu {
+    background: #0c1b27;
+    border-color: #203a49;
+  }
+  .community-switcher nav button,
+  .citizen-menu-links > button,
+  .notification-item {
+    color: #b7cbd5;
+  }
+  .community-switcher nav button:hover:not(:disabled),
+  .community-switcher nav button.active,
+  .citizen-menu-links > button:hover:not(:disabled),
+  .citizen-menu-links > button.active,
+  .notification-item:hover,
+  .notification-item.unread {
+    background: #122c36;
+    color: #dff5f7;
+  }
+  .citizen-menu-header h2,
+  .notification-menu header h2 {
+    color: #e4f3f4;
+  }
+  .citizen-menu-header button,
+  .notification-close {
+    background: #18313e;
+    color: #b8e2ec;
+  }
+  .menu-item-icon,
+  .notification-icon {
+    background: #153442;
+    color: #7dd7ef;
+  }
+  .citizen-menu-note,
+  .citizen-menu-links small,
+  .notification-item small,
+  .notification-empty {
+    color: #8aa5b2;
+  }
+  .hero-section::after {
+    background: linear-gradient(
+      90deg,
+      rgba(4, 18, 29, 0.96),
+      rgba(7, 32, 44, 0.85),
+      rgba(6, 25, 35, 0.7)
+    );
+  }
+  .hero-card {
+    background: rgba(10, 31, 43, 0.76);
+    border-color: rgba(135, 220, 237, 0.24);
+  }
+  .voting-steps h2,
+  .section-heading h2,
+  .polls-heading h1,
+  .form-heading h1,
+  .location-modal h2 {
+    color: #e9f6f5;
+  }
+  .step-grid article,
+  .proposal-card,
+  .ballot-group,
+  .poll-card,
+  .proposal-form,
+  .feedback-dialog,
+  .location-modal {
+    background: #0d1d29;
+    border-color: #203a49;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
+  }
+  .step-grid h3,
+  .proposal-card h3,
+  .ballot-group-heading p,
+  .choice-copy b,
+  .poll-card h2,
+  .feedback-dialog h3 {
+    color: #dff0f2;
+  }
+  .step-grid p,
+  .section-heading > div > p:not(.eyebrow),
+  .proposal-card > p,
+  .proposal-meta,
+  .polls-heading p:not(.eyebrow),
+  .ballot-group-heading span,
+  .choice-copy small,
+  .poll-location,
+  .feedback-dialog > p,
+  .location-name,
+  .coordinates,
+  .map-placeholder p {
+    color: #91abb7;
+  }
+  .filters select,
+  .search-box,
+  .poll-category-bar button,
+  .polls-link,
+  .necessary-button,
+  .unnecessary-button,
+  .comment-form input,
+  .proposal-form input,
+  .proposal-form select,
+  .proposal-form textarea,
+  .cancel-button {
+    background: #0a1924;
+    border-color: #284656;
+    color: #c7dde3;
+  }
+  .search-box input {
+    color: #d6e9ed;
+  }
+  .filters select option,
+  .proposal-form select option {
+    background: #0a1924;
+    color: #d6e9ed;
+  }
+  .polls-link {
+    color: #8ed9ed;
+  }
+  .polls-link:hover,
+  .poll-category-bar button.selected {
+    background: #17617c;
+    border-color: #2494b7;
+    color: #f1fbfb;
+  }
+  .ballot-group-heading {
+    background: #102733;
+    border-color: #203d4c;
+  }
+  .ballot-group-heading > b {
+    color: #71d7bf;
+  }
+  .ballot-option {
+    background: #0d1d29;
+    border-color: #203a49;
+    color: #d8e8eb;
+  }
+  .ballot-option:not(:disabled):hover,
+  .ballot-option.chosen {
+    background: #12313a;
+  }
+  .choice-icon {
+    background: #143947;
+    color: #84dced;
+  }
+  .issue-info {
+    background: #102630;
+    border-color: #396172;
+    color: #9fe4f4;
+  }
+  .category {
+    background: #312719;
+    color: #f1bd83;
+  }
+  .category-safety {
+    background: #352128;
+    color: #f4a9a8;
+  }
+  .category-mobility {
+    background: #1b2b42;
+    color: #a4c9fa;
+  }
+  .category-public-spaces {
+    background: #16362f;
+    color: #9be2c8;
+  }
+  .status {
+    background: #23313a;
+    color: #b8d0d9;
+  }
+  .status-open {
+    background: #35291b;
+    color: #f2c687;
+  }
+  .status-under_review {
+    background: #1a2d42;
+    color: #a9cef0;
+  }
+  .status-accepted {
+    background: #15372e;
+    color: #9ee0c7;
+  }
+  .comment-section {
+    border-color: #203a49;
+  }
+  .comment-toggle,
+  .details-button,
+  .back-button,
+  .mark-all-button {
+    color: #8ed9ed;
+  }
+  .comment-panel {
+    background: #10232e;
+  }
+  .comments-list article {
+    border-color: #25414e;
+  }
+  .comments-list b {
+    color: #bbdbe3;
+  }
+  .comments-list p,
+  .no-comments {
+    color: #91aab6;
+  }
+  .comment-form button {
+    background: #19708b;
+  }
+  .necessary-button {
+    color: #9bd8c4;
+  }
+  .unnecessary-button {
+    border-color: #613e39;
+    color: #e7a595;
+  }
+  .necessary-button.selected {
+    background: #153d32;
+    color: #a7eed1;
+  }
+  .unnecessary-button.selected {
+    background: #442722;
+    color: #f0b1a0;
+  }
+  .map-placeholder {
+    border-color: #315d69;
+    background: linear-gradient(135deg, #102b34, #142332);
+    color: #9adcea;
+  }
+  .map-placeholder span {
+    background: #174554;
+    color: #93e2ef;
+  }
+  .close-button {
+    background: #18313e;
+    color: #b8e2ec;
+  }
+  .empty-state {
+    border-color: #315364;
+    color: #a9c2ca;
+  }
+  .feedback-dialog textarea {
+    background: #0a1924;
+    border-color: #284656;
+    color: #d6e9ed;
+  }
+  .feedback-submit {
+    background: #c96447;
+  }
 }
 
 /* Citizen history: default dark styling, overridden by theme files below */
@@ -2124,4 +2123,4 @@ body,
   .history-card {
     padding: 17px;
   }
-} 
+}

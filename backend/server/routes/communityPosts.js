@@ -1,5 +1,6 @@
 import { Router } from "express";
 import CommunityPost from "../models/CommunityPost.js";
+import Notification from "../models/Notification.js";
 import { requireAuth, requireModerator } from "../middleware/auth.js";
 
 const router = Router();
@@ -24,6 +25,13 @@ router.post(
       const post = await CommunityPost.create({
         ...request.body,
         createdBy: request.user.id,
+      });
+      await Notification.create({
+        audience: "citizens",
+        type: "announcement",
+        title: "New community update",
+        message: post.title,
+        relatedCommunityPost: post.id,
       });
       response.status(201).json(post);
     } catch (error) {

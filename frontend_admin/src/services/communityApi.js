@@ -20,6 +20,11 @@ async function request(path, options = {}) {
 }
 
 export const communityApi = {
+  createAnnouncement: (announcement) =>
+    request("/notifications/broadcast", {
+      method: "POST",
+      body: JSON.stringify(announcement),
+    }),
   getPosts: () => request("/community-posts"),
   createPost: (post) =>
     request("/community-posts", { method: "POST", body: JSON.stringify(post) }),

@@ -1,4 +1,10 @@
-const icons = { proposal_status: "↗", comment: "◌", vote: "✓", system: "i" };
+const icons = {
+  proposal_status: "↗",
+  comment: "◌",
+  vote: "✓",
+  announcement: "!",
+  system: "i",
+};
 
 export default function NotificationList({
   notifications,
@@ -35,7 +41,7 @@ export default function NotificationList({
             <button
               className={`notification-item ${item.isRead ? "" : "unread"}`}
               onClick={() => onMarkRead(item.id)}
-              key={item.id}
+              key={item.id || item._id}
             >
               <span className={`notification-icon ${item.type}`}>
                 {icons[item.type]}

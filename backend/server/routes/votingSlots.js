@@ -1,5 +1,6 @@
 import { Router } from "express";
 import VotingSlot from "../models/VotingSlot.js";
+import Notification from "../models/Notification.js";
 import { requireAuth, requireModerator } from "../middleware/auth.js";
 
 const router = Router();
@@ -29,6 +30,13 @@ router.post(
       const slot = await VotingSlot.create({
         ...request.body,
         createdBy: request.user.id,
+      });
+      await Notification.create({
+        audience: "citizens",
+        type: "vote",
+        title: "New voting poll is open",
+        message: `${slot.label} is ready for your vote.`,
+        relatedVotingSlot: slot.id,
       });
       response.status(201).json(summary(slot));
     } catch (error) {
