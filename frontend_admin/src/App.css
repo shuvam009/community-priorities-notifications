@@ -415,6 +415,13 @@
     700 19px "Playfair Display",
     serif;
 }
+.admin-brand .smart-city-mark p {
+  color: #edf9fb;
+}
+.admin-brand .smart-city-logo {
+  width: 42px;
+  height: 42px;
+}
 .admin-brand small,
 .admin-account small {
   display: block;

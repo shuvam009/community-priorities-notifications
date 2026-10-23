@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
+import SmartCityMark from "./smart_city_mark_ad.jsx";
 
 export default function AdminShell({ children }) {
   return (
     <div className="admin-app">
       <aside className="admin-sidebar">
         <div className="admin-brand">
-          <span>SC</span>
           <div>
-            <b>Smart City</b>
+            <SmartCityMark />
             <small>ADMIN CONSOLE</small>
           </div>
         </div>

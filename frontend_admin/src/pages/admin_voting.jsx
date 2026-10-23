@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SmartCityMark from "../components/smart_city_mark_ad.jsx";
 
 const incomingIssues = [
   {
@@ -108,15 +109,11 @@ export default function AdminVoting() {
     <div className="admin-app">
       <aside className="admin-sidebar">
         <div className="admin-brand">
-          <span>SC</span>
           <div>
-            <b>Smart City</b>
+            <SmartCityMark />
             <small>ADMIN CONSOLE</small>
           </div>
         </div>
-
-        {/* <SmartCityMark /> */}
-        
         <nav>
           <button className="active">
             ▦ <span>Voting workspace</span>
