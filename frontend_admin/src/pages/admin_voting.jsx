@@ -125,7 +125,7 @@ export default function AdminVoting() {
             ◫ <span>Issue management</span>
           </button>
           <button>
-            ♧ <span>Citizen activity</span>
+            ♧ <span>Citizen anouncement</span>
           </button>
           <button onClick={() => navigate("/admin/voting-history")}>
             $ <span>Vote history</span>
