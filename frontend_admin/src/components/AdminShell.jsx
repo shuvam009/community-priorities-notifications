@@ -19,7 +19,7 @@ export default function AdminShell({ children }) {
             ◫ <span>Issue management</span>
           </button>
           <button>
-            ♧ <span>Citizen activity</span>
+            ♧ <span>Citizen anouncement</span>
           </button>
           <NavLink to="/admin/voting-history">
             $ <span>Vote history</span>
