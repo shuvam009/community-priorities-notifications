@@ -20,13 +20,29 @@ const votingSlotSchema = new mongoose.Schema(
       enum: ["draft", "open", "closed"],
       default: "draft",
     },
+    kind: {
+      type: String,
+      enum: ["standard", "relisted"],
+      default: "standard",
+    },
+    progressStatus: {
+      type: String,
+      enum: ["open_for_vote", "under_review", "accepted", "rejected"],
+      default: "open_for_vote",
+    },
+    progressReport: { type: String, trim: true, maxlength: 1000, default: "" },
     createdBy: { type: mongoose.Schema.Types.ObjectId, required: true },
     options: {
       type: [optionSchema],
-      validate: [
-        (value) => value.length === 3,
-        "A voting slot must contain exactly three issues.",
-      ],
+      validate: {
+        validator(value) {
+          return this.kind === "relisted"
+            ? value.length >= 1 && value.length <= 3
+            : value.length === 3;
+        },
+        message:
+          "A standard slot needs exactly three issues; a relisted slot can hold up to three.",
+      },
     },
   },
   { timestamps: true },

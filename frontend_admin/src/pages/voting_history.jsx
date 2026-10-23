@@ -34,6 +34,7 @@ const demoSlots = [
 
 export default function VotingHistory() {
   const [slots, setSlots] = useState(demoSlots);
+  const [relistedIds, setRelistedIds] = useState([]);
   const [message, setMessage] = useState(
     "Demo data shown until the API and admin token are connected.",
   );
@@ -46,16 +47,53 @@ export default function VotingHistory() {
       })
       .catch(() => {});
   }, []);
+  const relistedIssueIds = useMemo(
+    () =>
+      new Set(
+        slots
+          .filter((slot) => slot.kind === "relisted")
+          .flatMap((slot) => slot.options.map((option) => option.issueId)),
+      ),
+    [slots],
+  );
   const leastVoted = useMemo(
     () =>
       slots
         .flatMap((slot) =>
-          slot.options.map((option) => ({ ...option, slot: slot.label })),
+          slot.kind === "relisted"
+            ? []
+            : slot.options
+                .filter((option) => !relistedIssueIds.has(option.issueId))
+                .map((option) => ({
+                  ...option,
+                  slot: slot.label,
+                  slotId: slot._id,
+                })),
         )
         .sort((a, b) => a.voteCount - b.voteCount)
         .slice(0, 3),
-    [slots],
+    [relistedIssueIds, slots],
   );
+  async function relistIssue(issue) {
+    try {
+      const relistedSlot = await communityApi.relistVotingOption(
+        issue.slotId,
+        issue._id,
+      );
+      setRelistedIds((current) => [...current, issue._id]);
+      setSlots((current) => {
+        const withoutOldRelisted = current.filter(
+          (slot) => slot._id !== relistedSlot._id,
+        );
+        return [relistedSlot, ...withoutOldRelisted];
+      });
+      setMessage(
+        "Issue relisted. It is now visible to citizens under Relisted polls.",
+      );
+    } catch (error) {
+      setMessage(error.message);
+    }
+  }
   return (
     <main className="history-admin-page">
       <header className="page-top">
@@ -112,7 +150,14 @@ export default function VotingHistory() {
               <span>
                 {issue.category} · {issue.voteCount} votes · {issue.slot}
               </span>
-              <button disabled>Relist in next slot</button>
+              <button
+                disabled={relistedIds.includes(issue._id)}
+                onClick={() => relistIssue(issue)}
+              >
+                {relistedIds.includes(issue._id)
+                  ? "Relisted"
+                  : "Relist for citizens"}
+              </button>
             </article>
           ))}
         </div>

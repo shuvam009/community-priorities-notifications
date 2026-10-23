@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SmartCityMark from "../components/smart_city_mark_ad.jsx";
+import { communityApi } from "../services/communityApi.js";
 
 const incomingIssues = [
   {
@@ -41,7 +42,7 @@ const initialPolls = [
     category: "Roads & Traffic",
     ward: "Ward 63",
     voters: 122,
-    status: "Open",
+    status: "Open for vote",
     progress: "Poll is open. Citizen votes are being collected.",
     updated: "Updated today",
   },
@@ -65,6 +66,34 @@ export default function AdminVoting() {
   const [selectedPoll, setSelectedPoll] = useState(initialPolls[0]);
   const [reportText, setReportText] = useState(initialPolls[0].progress);
   const [filter, setFilter] = useState("All");
+  const [statusMessage, setStatusMessage] = useState("");
+  useEffect(() => {
+    communityApi
+      .getVotingSlots()
+      .then((slots) => {
+        if (!slots.length) return;
+        const livePolls = slots.map((slot) => ({
+          id: slot._id,
+          title: slot.label,
+          category:
+            slot.kind === "relisted" ? "Relisted polls" : "Community poll",
+          ward: "Kolkata",
+          voters: slot.options.reduce(
+            (total, option) => total + option.voteCount,
+            0,
+          ),
+          status: statusLabel(slot.progressStatus),
+          progress:
+            slot.progressReport || "No progress update has been published yet.",
+          updated: `Updated ${new Date(slot.updatedAt).toLocaleDateString("en-IN")}`,
+          liveSlot: true,
+        }));
+        setPolls(livePolls);
+        setSelectedPoll(livePolls[0]);
+        setReportText(livePolls[0].progress);
+      })
+      .catch(() => {});
+  }, []);
   const displayedIssues = useMemo(
     () =>
       filter === "All"
@@ -93,7 +122,7 @@ export default function AdminVoting() {
     setReportText(poll.progress);
     setSelectedIssue(null);
   }
-  function saveProgress(event) {
+  async function saveProgress(event) {
     event.preventDefault();
     const updated = {
       ...selectedPoll,
@@ -104,6 +133,31 @@ export default function AdminVoting() {
       current.map((poll) => (poll.id === updated.id ? updated : poll)),
     );
     setSelectedPoll(updated);
+    if (updated.liveSlot) {
+      try {
+        const slot = await communityApi.updateVotingProgress(updated.id, {
+          progressStatus: statusKey(updated.status),
+          progressReport: updated.progress,
+        });
+        const saved = {
+          ...updated,
+          status: statusLabel(slot.progressStatus),
+          progress: slot.progressReport,
+          updated: "Updated just now",
+        };
+        setPolls((current) =>
+          current.map((poll) => (poll.id === saved.id ? saved : poll)),
+        );
+        setSelectedPoll(saved);
+        setStatusMessage("Progress history updated for citizens.");
+      } catch (error) {
+        setStatusMessage(error.message);
+      }
+    } else {
+      setStatusMessage(
+        "Demo progress updated. Connect an admin JWT to save it to MongoDB.",
+      );
+    }
   }
   return (
     <div className="admin-app">
@@ -259,6 +313,23 @@ export default function AdminVoting() {
                 </span>
               </div>
               <label>
+                Poll status
+                <select
+                  value={selectedPoll.status}
+                  onChange={(event) =>
+                    setSelectedPoll((current) => ({
+                      ...current,
+                      status: event.target.value,
+                    }))
+                  }
+                >
+                  <option>Open for vote</option>
+                  <option>Under review</option>
+                  <option>Accepted</option>
+                  <option>Rejected</option>
+                </select>
+              </label>
+              <label>
                 Citizen progress report
                 <textarea
                   value={reportText}
@@ -267,7 +338,7 @@ export default function AdminVoting() {
                 />
               </label>
               <div className="editor-actions">
-                <small>{selectedPoll.updated}</small>
+                <small>{statusMessage || selectedPoll.updated}</small>
                 <button type="submit">Save progress report</button>
               </div>
             </form>
@@ -314,5 +385,25 @@ export default function AdminVoting() {
         </div>
       )}
     </div>
+  );
+}
+
+function statusKey(label) {
+  return {
+    "Open for vote": "open_for_vote",
+    "Under review": "under_review",
+    Accepted: "accepted",
+    Rejected: "rejected",
+  }[label];
+}
+
+function statusLabel(key) {
+  return (
+    {
+      open_for_vote: "Open for vote",
+      under_review: "Under review",
+      accepted: "Accepted",
+      rejected: "Rejected",
+    }[key] || "Open for vote"
   );
 }

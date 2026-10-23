@@ -1,14 +1,13 @@
 import { ClipboardList, History, Home, Vote, X } from "lucide-react";
 
 const navigationItems = [
-  
   {
     label: "HOME",
     detail: "Switch to main home page",
     icon: Home,
     disabled: false,
   },
-  
+
   {
     label: "Suggestions",
     detail: "Share and support local ideas",
@@ -22,8 +21,8 @@ const navigationItems = [
     path: "/community/polls",
   },
   {
-    label: "Voting & suggestion history",
-    detail: "Contribution History",
+    label: "Progress history",
+    detail: "Track your voting and suggestion progress",
     icon: History,
     path: "/community/history",
   },
@@ -72,7 +71,7 @@ export default function CitizenMenu({
                   <b>{label}</b>
                   <small>{detail}</small>
                 </span>
-                {disabled }
+                {disabled}
               </button>
             ),
           )}

@@ -82,7 +82,7 @@ export default function Polls({ onBack }) {
           .filter((slot) => slot.status === "open")
           .map((slot) => ({
             id: slot._id,
-            category: slot.label,
+            category: slot.kind === "relisted" ? "Relisted polls" : slot.label,
             publishedAt: `Published on ${formatDate(slot.createdAt || slot.opensAt)}`,
             closesAt: `Voting closes on ${formatDate(slot.closesAt)}`,
             liveSlot: true,
@@ -161,7 +161,7 @@ export default function Polls({ onBack }) {
           </p>
         </div>
         <div className="poll-summary">
-          <b>7</b>
+          <b>{groups.length}</b>
           <span>poll categories</span>
         </div>
       </div>

@@ -53,7 +53,7 @@ const proposalSchema = new mongoose.Schema(
     comments: [commentSchema],
     status: {
       type: String,
-      enum: ["open", "under_review", "accepted", "rejected"],
+      enum: ["open", "open_for_vote", "under_review", "accepted", "rejected"],
       default: "open",
     },
   },

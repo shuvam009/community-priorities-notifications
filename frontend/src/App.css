@@ -1104,6 +1104,10 @@ button {
   color: #a45b2b;
   background: #fff1df;
 }
+.status-open_for_vote {
+  color: #246f77;
+  background: #e1f4f3;
+}
 .status-under_review {
   color: #476c8c;
   background: #e7eff7;
@@ -1111,6 +1115,10 @@ button {
 .status-accepted {
   color: #347160;
   background: #e2f2e9;
+}
+.status-rejected {
+  color: #9c3b3b;
+  background: #f9e5e5;
 }
 .proposal-card h3 {
   margin: 18px 0 8px;
@@ -1806,6 +1814,10 @@ button {
     background: #35291b;
     color: #f2c687;
   }
+  .status-open_for_vote {
+    background: #123a3e;
+    color: #86dfdc;
+  }
   .status-under_review {
     background: #1a2d42;
     color: #a9cef0;
@@ -1813,6 +1825,10 @@ button {
   .status-accepted {
     background: #15372e;
     color: #9ee0c7;
+  }
+  .status-rejected {
+    background: #421f25;
+    color: #f0a6ac;
   }
   .comment-section {
     border-color: #203a49;
@@ -2044,6 +2060,15 @@ button {
 .history-status b {
   color: #d7eceb;
 }
+.history-report {
+  margin: 12px 0 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(35, 100, 112, 0.08);
+  color: #66808a;
+  font-size: 12px;
+  line-height: 1.5;
+}
 .history-status-dot {
   display: inline-block;
   width: 8px;
@@ -2105,6 +2130,10 @@ button {
 }
 .light-theme .history-status b {
   color: #315662;
+}
+.light-theme .history-report {
+  background: #eef7f5;
+  color: #55707c;
 }
 @media (max-width: 640px) {
   .community-history {

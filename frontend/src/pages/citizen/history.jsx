@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { CheckCircle2, Clock3, ThumbsUp } from "lucide-react";
+import { communityApi } from "../../services/communityApi.js";
 
 const historyItems = [
   {
@@ -6,8 +8,8 @@ const historyItems = [
     title: "Install street lights near New Town bus stop",
     category: "Street Lighting",
     date: "8 October 2026",
-    status: "Under review",
-    step: 2,
+    status: "Open for vote",
+    step: 1,
     voters: 285,
   },
   {
@@ -15,8 +17,8 @@ const historyItems = [
     title: "Repair drainage before monsoon in Ward 42",
     category: "Water Supply",
     date: "5 October 2026",
-    status: "Received",
-    step: 1,
+    status: "Under review",
+    step: 2,
     voters: 198,
   },
   {
@@ -33,12 +35,40 @@ const historyItems = [
 const progressLabels = ["Submitted", "Under review", "Decision published"];
 
 export default function History() {
+  const [items, setItems] = useState(historyItems);
+  useEffect(() => {
+    communityApi
+      .getVotingSlots()
+      .then((slots) => {
+        const liveItems = slots.flatMap((slot) =>
+          slot.options.map((option) => ({
+            type: "Vote",
+            title: option.title,
+            category: option.category,
+            date: new Date(slot.updatedAt || slot.createdAt).toLocaleDateString(
+              "en-IN",
+              {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              },
+            ),
+            status: statusLabel(slot.progressStatus),
+            step: progressStep(slot.progressStatus),
+            voters: option.voteCount,
+            report: slot.progressReport,
+          })),
+        );
+        if (liveItems.length) setItems(liveItems);
+      })
+      .catch(() => {});
+  }, []);
   return (
     <section className="community-history">
       <div className="history-heading">
         <div>
           <p className="eyebrow">YOUR COMMUNITY ACTIVITY</p>
-          <h1>Vote &amp; suggestion history</h1>
+          <h1>Progress history</h1>
           <p>
             Follow every contribution you have made and see its current
             city-review progress.
@@ -63,7 +93,7 @@ export default function History() {
         </article>
       </div>
       <div className="history-list">
-        {historyItems.map((item) => (
+        {items.map((item) => (
           <article className="history-card" key={item.title}>
             <div className="history-card-top">
               <span className="history-type">{item.type}</span>
@@ -90,9 +120,27 @@ export default function History() {
               />
               Current status: <b>{item.status}</b>
             </div>
+            {item.report && <p className="history-report">{item.report}</p>}
           </article>
         ))}
       </div>
     </section>
+  );
+}
+
+function statusLabel(status) {
+  return (
+    {
+      open_for_vote: "Open for vote",
+      under_review: "Under review",
+      accepted: "Accepted",
+      rejected: "Rejected",
+    }[status] || "Open for vote"
+  );
+}
+
+function progressStep(status) {
+  return (
+    { open_for_vote: 1, under_review: 2, accepted: 3, rejected: 3 }[status] || 1
   );
 }

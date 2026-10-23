@@ -125,8 +125,10 @@ export default function Voting({
           >
             <option value="all">All statuses</option>
             <option value="open">Open for Suggestion</option>
+            <option value="open_for_vote">Open for vote</option>
             <option value="under_review">Under review</option>
             <option value="accepted">Accepted</option>
+            <option value="rejected">Rejected</option>
           </select>
           <select
             value={category}

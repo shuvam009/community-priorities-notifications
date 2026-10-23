@@ -31,4 +31,13 @@ export const communityApi = {
   getVotingSlots: () => request("/voting-slots"),
   createVotingSlot: (slot) =>
     request("/voting-slots", { method: "POST", body: JSON.stringify(slot) }),
+  relistVotingOption: (slotId, optionId) =>
+    request(`/voting-slots/${slotId}/options/${optionId}/relist`, {
+      method: "POST",
+    }),
+  updateVotingProgress: (slotId, progress) =>
+    request(`/voting-slots/${slotId}/progress`, {
+      method: "PATCH",
+      body: JSON.stringify(progress),
+    }),
 };

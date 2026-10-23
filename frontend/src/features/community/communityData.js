@@ -7,7 +7,7 @@ export const initialProposals = [
     ward: "Ward 39",
     area: "New Town",
     category: "Street Lighting",
-    status: "open",
+    status: "open_for_vote",
     votes: 284,
     notNecessaryVotes: 11,
     voteChoice: null,

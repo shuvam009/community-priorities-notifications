@@ -45,6 +45,115 @@ router.post(
   },
 );
 
+router.patch(
+  "/:slotId/progress",
+  requireAuth,
+  requireModerator,
+  async (request, response, next) => {
+    try {
+      const { progressStatus, progressReport } = request.body;
+      const allowedStatuses = [
+        "open_for_vote",
+        "under_review",
+        "accepted",
+        "rejected",
+      ];
+      if (!allowedStatuses.includes(progressStatus))
+        return response
+          .status(400)
+          .json({ message: "Invalid poll progress status." });
+
+      const slot = await VotingSlot.findById(request.params.slotId);
+      if (!slot)
+        return response.status(404).json({ message: "Voting slot not found." });
+
+      slot.progressStatus = progressStatus;
+      slot.progressReport = progressReport?.trim() || "";
+      slot.status = progressStatus === "open_for_vote" ? "open" : "closed";
+      await slot.save();
+
+      await Notification.create({
+        audience: "citizens",
+        type: "proposal_status",
+        title: "Voting poll progress updated",
+        message: `${slot.label} is now ${progressStatus.replaceAll("_", " ")}.`,
+        relatedVotingSlot: slot.id,
+      });
+      response.json(summary(slot));
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+// Move a low-vote issue into the active "Relisted polls" citizen category.
+router.post(
+  "/:slotId/options/:optionId/relist",
+  requireAuth,
+  requireModerator,
+  async (request, response, next) => {
+    try {
+      const sourceSlot = await VotingSlot.findById(request.params.slotId);
+      if (!sourceSlot)
+        return response
+          .status(404)
+          .json({ message: "Source voting slot not found." });
+      const sourceOption = sourceSlot.options.id(request.params.optionId);
+      if (!sourceOption)
+        return response
+          .status(404)
+          .json({ message: "Issue option not found." });
+
+      let relistedSlot = await VotingSlot.findOne({
+        kind: "relisted",
+        status: "open",
+      }).sort({ opensAt: -1 });
+
+      if (
+        relistedSlot &&
+        relistedSlot.options.some(
+          (option) => option.issueId === sourceOption.issueId,
+        )
+      )
+        return response
+          .status(409)
+          .json({ message: "This issue is already relisted." });
+
+      if (!relistedSlot || relistedSlot.options.length >= 3) {
+        const closesAt = new Date();
+        closesAt.setDate(closesAt.getDate() + 7);
+        relistedSlot = new VotingSlot({
+          label: "Relisted polls",
+          kind: "relisted",
+          opensAt: new Date(),
+          closesAt,
+          status: "open",
+          createdBy: request.user.id,
+          options: [],
+        });
+      }
+
+      relistedSlot.options.push({
+        issueId: sourceOption.issueId,
+        title: sourceOption.title,
+        category: sourceOption.category,
+      });
+      await relistedSlot.save();
+
+      await Notification.create({
+        audience: "citizens",
+        type: "vote",
+        title: "A poll has been relisted",
+        message: `${sourceOption.title} is open again for community voting.`,
+        relatedVotingSlot: relistedSlot.id,
+      });
+      response.status(201).json(summary(relistedSlot));
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
 router.post(
   "/:slotId/options/:optionId/vote",
   requireAuth,

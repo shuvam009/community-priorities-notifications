@@ -157,7 +157,15 @@ router.patch(
   async (request, response, next) => {
     try {
       const { status } = request.body;
-      if (!["open", "under_review", "accepted", "rejected"].includes(status))
+      if (
+        ![
+          "open",
+          "open_for_vote",
+          "under_review",
+          "accepted",
+          "rejected",
+        ].includes(status)
+      )
         return response
           .status(400)
           .json({ message: "Invalid proposal status." });

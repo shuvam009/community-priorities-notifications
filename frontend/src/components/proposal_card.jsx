@@ -3,9 +3,10 @@ import CommentSection from "./comment_section.jsx";
 
 const statusLabels = {
   open: "Open for Suggestion",
+  open_for_vote: "Open for vote",
   under_review: "Under review",
   accepted: "Accepted",
-  rejected: "Not selected",
+  rejected: "Rejected",
 };
 
 export default function ProposalCard({

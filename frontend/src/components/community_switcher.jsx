@@ -9,7 +9,7 @@ import {
 const pages = [
   { label: "Suggestions", icon: ClipboardList, path: "/community/suggestions" },
   { label: "Voting polls", icon: Vote, path: "/community/polls" },
-  { label: "History", icon: History, path: "/community/history" },
+  { label: "Progress history", icon: History, path: "/community/history" },
 ];
 
 export default function CommunitySwitcher({
