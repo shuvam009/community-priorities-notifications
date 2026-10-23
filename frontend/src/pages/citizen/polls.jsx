@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { communityApi } from "../../services/communityApi.js";
 
 const pollGroups = [
   {
@@ -59,7 +60,9 @@ const pollGroups = [
   },
 ].map((group) => ({
   ...group,
+  id: group.category,
   publishedAt: "Published on 8 October 2026",
+  closesAt: "Voting closes on 31 October 2026",
   choices: group.choices.map(([title, votes], index) => ({
     id: `${group.category}-${index}`,
     title,
@@ -71,6 +74,29 @@ export default function Polls({ onBack }) {
   const [groups, setGroups] = useState(pollGroups);
   const [category, setCategory] = useState("All");
   const [selectedVotes, setSelectedVotes] = useState({});
+  useEffect(() => {
+    communityApi
+      .getVotingSlots()
+      .then((slots) => {
+        const liveGroups = slots
+          .filter((slot) => slot.status === "open")
+          .map((slot) => ({
+            id: slot._id,
+            category: slot.label,
+            publishedAt: `Published on ${formatDate(slot.createdAt || slot.opensAt)}`,
+            closesAt: `Voting closes on ${formatDate(slot.closesAt)}`,
+            liveSlot: true,
+            choices: slot.options.map((option) => ({
+              id: option._id,
+              title: option.title,
+              votes: option.voteCount,
+            })),
+          }));
+        if (liveGroups.length) setGroups(liveGroups);
+      })
+      // Demo polls remain visible until the API, citizen JWT, and admin polls are connected.
+      .catch(() => {});
+  }, []);
   const shownGroups = useMemo(
     () =>
       groups.filter(
@@ -79,16 +105,38 @@ export default function Polls({ onBack }) {
     [category, groups],
   );
 
-  function castVote(categoryName, choiceId) {
-    if (selectedVotes[categoryName]) return;
-    setSelectedVotes((current) => ({ ...current, [categoryName]: choiceId }));
+  async function castVote(group, choiceId) {
+    if (selectedVotes[group.id]) return;
+    setSelectedVotes((current) => ({ ...current, [group.id]: choiceId }));
+    if (group.liveSlot) {
+      try {
+        const updatedSlot = await communityApi.voteInSlot(group.id, choiceId);
+        setGroups((current) =>
+          current.map((item) =>
+            item.id === group.id
+              ? {
+                  ...item,
+                  choices: updatedSlot.options.map((option) => ({
+                    id: option._id,
+                    title: option.title,
+                    votes: option.voteCount,
+                  })),
+                }
+              : item,
+          ),
+        );
+      } catch {
+        setSelectedVotes((current) => ({ ...current, [group.id]: null }));
+      }
+      return;
+    }
     setGroups((current) =>
-      current.map((group) =>
-        group.category !== categoryName
-          ? group
+      current.map((currentGroup) =>
+        currentGroup.id !== group.id
+          ? currentGroup
           : {
-              ...group,
-              choices: group.choices.map((choice) =>
+              ...currentGroup,
+              choices: currentGroup.choices.map((choice) =>
                 choice.id === choiceId
                   ? { ...choice, votes: choice.votes + 1 }
                   : choice,
@@ -135,22 +183,20 @@ export default function Polls({ onBack }) {
               <div>
                 <p>{group.category} issues</p>
                 <span>
-                  {selectedVotes[group.category]
-                    ? "Vote submitted"
-                    : group.publishedAt}
+                  {selectedVotes[group.id] ? "Vote submitted" : group.closesAt}
                 </span>
               </div>
-              <b>{group.publishedAt}</b>
+              <b>{group.closesAt}</b>
             </div>
             <div className="ballot-options">
               {group.choices.map((choice) => {
-                const isChosen = selectedVotes[group.category] === choice.id;
+                const isChosen = selectedVotes[group.id] === choice.id;
                 return (
                   <button
                     className={`ballot-option ${isChosen ? "chosen" : ""}`}
                     key={choice.id}
-                    disabled={Boolean(selectedVotes[group.category])}
-                    onClick={() => castVote(group.category, choice.id)}
+                    disabled={Boolean(selectedVotes[group.id])}
+                    onClick={() => castVote(group, choice.id)}
                   >
                     <span className="choice-icon">⌖</span>
                     <span className="choice-copy">
@@ -173,4 +219,12 @@ export default function Polls({ onBack }) {
       </div>
     </section>
   );
+}
+
+function formatDate(value) {
+  return new Date(value).toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 }
