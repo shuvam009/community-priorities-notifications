@@ -25,6 +25,7 @@ export const communityApi = {
       method: "POST",
       body: JSON.stringify(announcement),
     }),
+    
   getPosts: () => request("/community-posts"),
   createPost: (post) =>
     request("/community-posts", { method: "POST", body: JSON.stringify(post) }),
